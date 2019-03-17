@@ -40,7 +40,7 @@ lin_compare <- function(df, name_x, name_y, name_z) {
   c2 <- deparse(substitute(name_y))
   c3 <- deparse(substitute(name_z))
   df %>% ggplot(aes(x = eval(parse(text = c1)), y = eval(parse(text = c2)),
-                    fill = eval(parse(text = c3)))) +
+                    color = eval(parse(text = c3)))) +
     geom_point() +
     geom_smooth(method = "lm", se = FALSE, color = "red") +
     geom_smooth(method = "loess", se = FALSE, color = "blue") +
