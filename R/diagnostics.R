@@ -48,7 +48,6 @@ lin_compare <- function(df, name_x, name_y, name_z = FALSE) {
       theme_bw()
   }
   else {
-    print(c3)
     df %>% ggplot(aes(x = eval(parse(text = c1)), y = eval(parse(text = c2)),
                       color = eval(parse(text = c3)))) +
       geom_point(size = 2) +
