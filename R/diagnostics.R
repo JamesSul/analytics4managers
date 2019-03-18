@@ -44,16 +44,18 @@ lin_compare <- function(df, name_x, name_y, name_z = FALSE) {
       geom_point(size = 2) +
       geom_smooth(method = "lm", se = FALSE, color = "red") +
       geom_smooth(method = "loess", se = FALSE, color = "blue") +
-      xlab(c1) + ylab(c2) + ggtitle("Linear/LOESS comparison") +
+      xlab(c1) + ylab(c2) + ggtitle("Linear comparison") +
       theme_bw()
   }
   else {
+    print(c3)
     df %>% ggplot(aes(x = eval(parse(text = c1)), y = eval(parse(text = c2)),
                       color = eval(parse(text = c3)))) +
       geom_point(size = 2) +
       geom_smooth(method = "lm", se = FALSE, color = "red") +
       geom_smooth(method = "loess", se = FALSE, color = "blue") +
-      xlab(c1) + ylab(c2) + ggtitle("Linear/LOESS comparison") +
+      xlab(c1) + ylab(c2) + ggtitle("Linear comparison") +
+      labs(color = c3) +
       theme_bw()
   }
 }
