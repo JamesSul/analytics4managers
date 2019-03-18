@@ -58,3 +58,16 @@ lin_compare <- function(df, name_x, name_y, name_z = FALSE) {
       theme_bw()
   }
 }
+model_compare <- function(...) {
+  model_list <- list(...)
+  df <- glance(model_list[[1]])
+  df$mname <- Reduce(paste, deparse(model_list[[1]]$call[[2]]))
+  df <- df %>% select(mname, everything())
+  for(i in 2:length(model_list)) {
+    new_df <- glance(model_list[[i]])
+    new_df$mname <- Reduce(paste, deparse(model_list[[i]]$call[[2]]))
+    new_df <- new_df %>% select(mname, everything())
+    df <- rbind(df, new_df)
+  }
+  df %>% select(mname, adj.r.squared, sigma, statistic, p.value, AIC, BIC)
+}
