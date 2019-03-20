@@ -73,7 +73,8 @@ model_compare <- function(...) {
 }
 
 assign1_test <- function(mdl) {
-  test <- read_csv("http://www.jamessuleiman.com/teaching/datasets/boston_housing.csv")
+  test <- read_csv("http://www.jamessuleiman.com/teaching/datasets/boston_test.csv",
+                   col_types = cols(chas = col_integer(), rad = col_integer()))
   test2 <- test %>%
     add_predictions(mdl)
   mse <- test2 %>%
