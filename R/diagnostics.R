@@ -71,3 +71,23 @@ model_compare <- function(...) {
   }
   df %>% select(mname, adj.r.squared, sigma, statistic, p.value, AIC, BIC)
 }
+
+assign1_test <- function(mdl) {
+  test <- read_csv("http://www.jamessuleiman.com/teaching/datasets/boston_housing.csv")
+  test2 <- test %>%
+    add_predictions(mdl)
+  mse <- test2 %>%
+    summarize(MSE = mean((medv - pred)^2))
+  if(class(mdl)[[1]] == "train")
+    mdl = mdl$finalModel
+  if(length(mdl$coefficients) > 6)
+    stop('You must choose five or fewer predictors as stated in the assignment.')
+  df <- glance(mdl)
+  df <- df %>% select(adj.r.squared, BIC)
+  df <- cbind(df, mse)
+  title <- paste("mse: ", round(df$MSE, digits = 4), ", adjusted.r.squared",
+                 round(df$adj.r.squared, digits = 4), ", BIC: ",
+                 round(df$BIC, digits = 2))
+  lin_compare(test2, pred, medv) +
+    ggtitle(paste0(title))
+}
